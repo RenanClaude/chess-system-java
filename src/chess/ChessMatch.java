@@ -24,8 +24,12 @@ public class ChessMatch {
     return matriz;
   }
 
+  private void placeNewPiece(char column, int row, ChessPiece piece) {
+    this.board.placePiece(piece, new ChessPosition(row, column).toPosition());
+  }
+
   public void initialSetup() {
-    this.board.placePiece(new King(this.board, Color.BLACK), new Position(0, 4));
-    this.board.placePiece(new King(this.board, Color.WHITE), new Position(7, 4));
+    this.placeNewPiece('e', 1, new King(this.board, Color.WHITE));
+    this.placeNewPiece('e', 8, new King(this.board, Color.BLACK));
   }
 }
