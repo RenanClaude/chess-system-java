@@ -7,7 +7,7 @@ public class ChessPosition {
   private int row;
   private char column;
 
-  public ChessPosition(int row, char column) {
+  public ChessPosition(char column, int row) {
     if (row < 1 || row > 8 || column < 'a' || column > 'h') {
       throw new ChessException("Error instantiating the chess position: Valid values are a1 "
           + "through h8.");
@@ -29,7 +29,7 @@ public class ChessPosition {
   }
 
   protected static ChessPosition fromPosition(Position position) {
-    return new ChessPosition(8 - position.getRow(), (char) (position.getColumn() + 1));
+    return new ChessPosition((char) (position.getColumn() + 1),8 - position.getRow());
   }
 
   @Override
