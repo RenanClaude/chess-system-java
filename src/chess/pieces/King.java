@@ -2,13 +2,17 @@ package chess.pieces;
 
 import boardgame.Board;
 import boardgame.Position;
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.Color;
 
 public class King extends ChessPiece {
 
-  public King(Board board, Color color) {
+  private final ChessMatch match;
+
+  public King(Board board, Color color, ChessMatch match) {
     super(board, color);
+    this.match = match;
   }
 
   @Override
@@ -19,6 +23,13 @@ public class King extends ChessPiece {
   private boolean canMove(Position position) {
     ChessPiece piece = (ChessPiece) this.getBoard().piece(position);
     return piece == null || piece.getColor() != this.getColor();
+  }
+
+  private boolean testRookCastling(Position position) {
+    ChessPiece piece = (ChessPiece) this.getBoard().piece(position);
+    return piece instanceof Rook
+        && piece.getColor() == this.getColor()
+        && piece.getMoveCount() == 0;
   }
 
   @Override
@@ -71,6 +82,31 @@ public class King extends ChessPiece {
     pos.setValues(this.position.getRow() + 1, this.position.getColumn() + 1);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
+    }
+
+    //Castling
+    if (this.getMoveCount() == 0 && !this.match.getCheck()) {
+      //Castling on the king's side.
+      Position posRook1 = new Position(this.position.getRow(), this.position.getColumn() + 3);
+      if (this.testRookCastling(posRook1)) {
+        Position position1 = new Position(this.position.getRow(), this.position.getColumn() + 2);
+        Position position2 = new Position(this.position.getRow(), this.position.getColumn() + 1);
+        if (this.getBoard().piece(position1) == null && this.getBoard().piece(position2) == null) {
+          matriz[this.position.getRow()][this.position.getColumn() + 2] = true;
+        }
+      }
+      //Castling on the queen's side.
+      Position posRook2 = new Position(this.position.getRow(), this.position.getColumn() - 4);
+      if (this.testRookCastling(posRook2)) {
+        Position position1 = new Position(this.position.getRow(), this.position.getColumn() - 1);
+        Position position2 = new Position(this.position.getRow(), this.position.getColumn() - 2);
+        Position position3 = new Position(this.position.getRow(), this.position.getColumn() - 3);
+        if (this.getBoard().piece(position1) == null
+            && this.getBoard().piece(position2) == null
+            && this.getBoard().piece(position3) == null) {
+          matriz[this.position.getRow()][this.position.getColumn() - 2] = true;
+        }
+      }
     }
 
     return matriz;
