@@ -189,6 +189,52 @@ public class ChessMatch {
     return false;
   }
 
+  public boolean kingWillBeInCheck(Position position, Color color) {
+    List<ChessPiece> opponentPieces =
+        this.piecesOnTheBoard.stream().filter(x -> x.getColor() == opponent(color)).toList();
+    for (ChessPiece piece : opponentPieces) {
+      if (!(piece instanceof King)) {
+        boolean[][] matriz = piece.possibleMoves();
+        if (matriz[position.getRow()][position.getColumn()]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public boolean testCheckKingSideCastling(Color color) {
+    Position kingPosition = king(color).getChessPosition().toPosition();
+    List<ChessPiece> opponentPieces =
+        this.piecesOnTheBoard.stream().filter(x -> x.getColor() == opponent(color)).toList();
+    for (ChessPiece piece : opponentPieces) {
+      if (!(piece instanceof King)) {
+        boolean[][] matriz = piece.possibleMoves();
+        if (matriz[kingPosition.getRow()][
+            kingPosition.getColumn() + 1]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public boolean testCheckQueenSideCastling(Color color) {
+    Position kingPosition = king(color).getChessPosition().toPosition();
+    List<ChessPiece> opponentPieces =
+        this.piecesOnTheBoard.stream().filter(x -> x.getColor() == opponent(color)).toList();
+    for (ChessPiece piece : opponentPieces) {
+      if (!(piece instanceof King)) {
+        boolean[][] matriz = piece.possibleMoves();
+        if (matriz[kingPosition.getRow()][
+            kingPosition.getColumn() - 1]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   private boolean testCheckMate(Color color) {
     if (!testCheck(color)) {
       return false;
