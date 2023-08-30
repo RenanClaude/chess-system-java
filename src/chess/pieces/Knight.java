@@ -5,15 +5,15 @@ import boardgame.Position;
 import chess.ChessPiece;
 import chess.Color;
 
-public class King extends ChessPiece {
+public class Knight extends ChessPiece {
 
-  public King(Board board, Color color) {
+  public Knight(Board board, Color color) {
     super(board, color);
   }
 
   @Override
   public String toString() {
-    return "K";
+    return "N";
   }
 
   private boolean canMove(Position position) {
@@ -25,54 +25,46 @@ public class King extends ChessPiece {
   public boolean[][] possibleMoves() {
     boolean[][] matriz = new boolean[this.getBoard().getRows()][this.getBoard().getColumns()];
     Position pos = new Position(0, 0);
-    //Above
-    pos.setValues(this.position.getRow() - 1, this.position.getColumn());
+
+    pos.setValues(this.position.getRow() - 1, this.position.getColumn() - 2);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
 
-    //Below
-    pos.setValues(this.position.getRow() + 1, this.position.getColumn());
+    pos.setValues(this.position.getRow() - 2, this.position.getColumn() - 1);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
 
-    //Left
-    pos.setValues(this.position.getRow(), this.position.getColumn() - 1);
+    pos.setValues(this.position.getRow() - 2, this.position.getColumn() + 1);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
 
-    //Right
-    pos.setValues(this.position.getRow(), this.position.getColumn() + 1);
+    pos.setValues(this.position.getRow() - 1, this.position.getColumn() + 2);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
 
-    //NW
-    pos.setValues(this.position.getRow() - 1, this.position.getColumn() - 1);
+    pos.setValues(this.position.getRow() + 1, this.position.getColumn() + 2);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
 
-    //NE
-    pos.setValues(this.position.getRow() - 1, this.position.getColumn() + 1);
+    pos.setValues(this.position.getRow() + 2, this.position.getColumn() + 1);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
 
-    //SW
-    pos.setValues(this.position.getRow() + 1, this.position.getColumn() - 1);
+    pos.setValues(this.position.getRow() + 2, this.position.getColumn() - 1);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
 
-    //SE
-    pos.setValues(this.position.getRow() + 1, this.position.getColumn() + 1);
+    pos.setValues(this.position.getRow() + 1, this.position.getColumn() - 2);
     if (getBoard().positionExistis(pos) && canMove(pos)) {
       matriz[pos.getRow()][pos.getColumn()] = true;
     }
-
     return matriz;
   }
 }

@@ -70,9 +70,10 @@ public class UI {
       if (match.getCheck()) {
         System.out.println("CHECK!");
       }
+    } else {
+      System.out.println("CHECKMATE!");
+      System.out.println("WINNER: " + match.getCurrentPlayer());
     }
-    System.out.println("CHECKMATE!");
-    System.out.println("WINNER: " + match.getCurrentPlayer());
   }
 
   public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
