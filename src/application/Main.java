@@ -37,13 +37,16 @@ public class Main {
         }
 
         if (match.getPromoted() != null) {
-          System.out.print("Enter a piece for promotion (Q / R / B / N): ");
-          String type = sc.nextLine();
+          String type;
+          do {
+            System.out.print("Enter a piece for promotion (Q / R / B / N): ");
+            type = sc.nextLine().toUpperCase();
+          }
+          while (!type.equals("B") && !type.equals("R") && !type.equals("N") && !type.equals("Q"));
           match.replacePromotedPiece(type);
         }
         System.out.println();
-      } catch (ChessException | InputMismatchException
-               | IllegalStateException | InvalidParameterException error) {
+      } catch (ChessException | InputMismatchException | IllegalStateException error) {
         System.out.println(error.getMessage());
         sc.nextLine();
       }

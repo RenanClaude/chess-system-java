@@ -5,11 +5,10 @@ import boardgame.Position;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.Color;
-import java.util.List;
 
 public class King extends ChessPiece {
 
-  private ChessMatch match;
+  private final ChessMatch match;
 
   public King(Board board, Color color, ChessMatch match) {
     super(board, color);

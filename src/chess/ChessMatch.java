@@ -9,10 +9,8 @@ import chess.pieces.Knight;
 import chess.pieces.Pawn;
 import chess.pieces.Queen;
 import chess.pieces.Rook;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ChessMatch {
 
@@ -119,13 +117,13 @@ public class ChessMatch {
     if (this.promoted == null) {
       throw new IllegalStateException("There is no piece to be promoted");
     }
-    type = type.toUpperCase();
     if (!type.equals("B") && !type.equals("R") && !type.equals("N") && !type.equals("Q")) {
-      throw new InvalidParameterException("Invalid type for promotion");
+      return this.promoted;
     }
     Position pos = this.promoted.getChessPosition().toPosition();
     Piece p = this.board.removePiece(pos);
     this.piecesOnTheBoard.remove(p);
+
     ChessPiece newPiece = this.newPiece(type, promoted.getColor());
     this.board.placePiece(newPiece, pos);
     this.piecesOnTheBoard.add(newPiece);
@@ -171,7 +169,6 @@ public class ChessMatch {
       this.board.placePiece(rook1, targetRook1);
       rook1.increaseMoveCount();
     }
-
     // En Passant
     if (p instanceof Pawn) {
       if (source.getColumn() != target.getColumn() && capturedPiece == null) {
