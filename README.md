@@ -1,4 +1,4 @@
-# <div align="center">♔ Chess System ♚</div>
+# <div align="center">♙♘♗♖♕♔ Chess System ♚♛♜♝♞♟</div>
 Todo o projeto é de minha autoria.<br/>
 Este projeto é uma aplicação funcional de uma partida de xadrez, construida em Java.<br/>
 O Desenvolvimento do projeto foi focado programação orientada a objetos, com o objetivo de executar com sucesso uma partida inteira de xadrez. 
